@@ -1,5 +1,4 @@
 'use strict';
-
 async function maxmind(type){
     const https = require('https'); // or 'https' for https:// URLs
     const fs = require('fs');
@@ -104,3 +103,9 @@ async function ip2location(type){
 }
 
 module.exports = {maxmind: maxmind, ip2location: ip2location};
+
+const argv = require('yargs-parser')(process.argv.slice(2));
+if(argv.from === 'maxmind' || argv.from === 'ip2location'){
+    let method = argv.from;
+    let rs = module.exports[method](argv.type);
+}
